@@ -99,7 +99,7 @@ export default function EMICalculator() {
             <Calendar className="w-4 h-4" />
             Loan Tenure
           </label>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <input
               type="number"
               value={tenure}

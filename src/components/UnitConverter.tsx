@@ -66,7 +66,7 @@ export default function UnitConverter({ category }: UnitConverterProps) {
     <div className="space-y-6">
       <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
         <label className="block text-sm font-medium text-gray-700 mb-2">From</label>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <input
             type="number"
             value={fromValue}
@@ -102,7 +102,7 @@ export default function UnitConverter({ category }: UnitConverterProps) {
 
       <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
         <label className="block text-sm font-medium text-gray-700 mb-2">To</label>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <input
             type="number"
             value={toValue}
