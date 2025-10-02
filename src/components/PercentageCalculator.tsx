@@ -1,24 +1,39 @@
 import { useState } from 'react';
 
+/**
+ * @component PercentageCalculator
+ * @description A multi-functional percentage calculator that supports basic percentage, increase, decrease, and percentage change calculations.
+ * Users can switch between different calculation types using the provided buttons.
+ * @returns {JSX.Element} The rendered percentage calculator component.
+ */
 export default function PercentageCalculator() {
   const [type, setType] = useState<'basic' | 'increase' | 'decrease' | 'difference'>('basic');
 
+  // State for the 'Basic' percentage calculation (What is X% of Y?)
   const [basicValue, setBasicValue] = useState('');
   const [basicPercent, setBasicPercent] = useState('');
   const [basicResult, setBasicResult] = useState('');
 
+  // State for the 'Percentage Change' calculation
   const [changeOriginal, setChangeOriginal] = useState('');
   const [changeNew, setChangeNew] = useState('');
   const [changeResult, setChangeResult] = useState('');
 
+  // State for the 'Increase by Percentage' calculation
   const [increaseValue, setIncreaseValue] = useState('');
   const [increasePercent, setIncreasePercent] = useState('');
   const [increaseResult, setIncreaseResult] = useState('');
 
+  // State for the 'Decrease by Percentage' calculation
   const [decreaseValue, setDecreaseValue] = useState('');
   const [decreasePercent, setDecreasePercent] = useState('');
   const [decreaseResult, setDecreaseResult] = useState('');
 
+  /**
+   * @function calculateBasic
+   * @description Calculates the result of a basic percentage operation (X% of Y).
+   * Updates the `basicResult` state.
+   */
   const calculateBasic = () => {
     if (basicValue && basicPercent) {
       const result = (Number(basicValue) * Number(basicPercent)) / 100;
@@ -28,6 +43,11 @@ export default function PercentageCalculator() {
     }
   };
 
+  /**
+   * @function calculateChange
+   * @description Calculates the percentage change between an original and a new value.
+   * Updates the `changeResult` state.
+   */
   const calculateChange = () => {
     if (changeOriginal && changeNew) {
       const change = ((Number(changeNew) - Number(changeOriginal)) / Number(changeOriginal)) * 100;
@@ -37,6 +57,11 @@ export default function PercentageCalculator() {
     }
   };
 
+  /**
+   * @function calculateIncrease
+   * @description Calculates the result of increasing a value by a given percentage.
+   * Updates the `increaseResult` state.
+   */
   const calculateIncrease = () => {
     if (increaseValue && increasePercent) {
       const result = Number(increaseValue) * (1 + Number(increasePercent) / 100);
@@ -46,6 +71,11 @@ export default function PercentageCalculator() {
     }
   };
 
+  /**
+   * @function calculateDecrease
+   * @description Calculates the result of decreasing a value by a given percentage.
+   * Updates the `decreaseResult` state.
+   */
   const calculateDecrease = () => {
     if (decreaseValue && decreasePercent) {
       const result = Number(decreaseValue) * (1 - Number(decreasePercent) / 100);

@@ -1,16 +1,33 @@
 import { useState } from 'react';
 import { CalculatorCategory } from '../types/calculator';
 
+/**
+ * @interface UnitConverterProps
+ * @description Defines the props for the UnitConverter component.
+ * @property {CalculatorCategory} category - The category of units to be converted (e.g., length, weight).
+ */
 interface UnitConverterProps {
   category: CalculatorCategory;
 }
 
+/**
+ * @component UnitConverter
+ * @description A generic component for converting values between different units within a given category.
+ * It uses a base conversion system where each unit knows how to convert to and from a common base unit.
+ * @param {UnitConverterProps} props - The props for the component.
+ * @returns {JSX.Element} The rendered unit converter component.
+ */
 export default function UnitConverter({ category }: UnitConverterProps) {
   const [fromUnit, setFromUnit] = useState(0);
   const [toUnit, setToUnit] = useState(1);
   const [fromValue, setFromValue] = useState('');
   const [toValue, setToValue] = useState('');
 
+  /**
+   * @function handleFromValueChange
+   * @description Handles changes in the "from" value input. Converts the value to the selected "to" unit.
+   * @param {string} value - The new input value.
+   */
   const handleFromValueChange = (value: string) => {
     setFromValue(value);
     if (value === '' || isNaN(Number(value))) {
@@ -23,6 +40,11 @@ export default function UnitConverter({ category }: UnitConverterProps) {
     setToValue(convertedValue.toFixed(8).replace(/\.?0+$/, ''));
   };
 
+  /**
+   * @function handleToValueChange
+   * @description Handles changes in the "to" value input. Converts the value back to the selected "from" unit.
+   * @param {string} value - The new input value.
+   */
   const handleToValueChange = (value: string) => {
     setToValue(value);
     if (value === '' || isNaN(Number(value))) {
@@ -35,6 +57,11 @@ export default function UnitConverter({ category }: UnitConverterProps) {
     setFromValue(convertedValue.toFixed(8).replace(/\.?0+$/, ''));
   };
 
+  /**
+   * @function handleFromUnitChange
+   * @description Handles changes in the "from" unit selection. Recalculates the conversion based on the new unit.
+   * @param {number} index - The index of the newly selected "from" unit.
+   */
   const handleFromUnitChange = (index: number) => {
     setFromUnit(index);
     if (fromValue) {
@@ -45,6 +72,11 @@ export default function UnitConverter({ category }: UnitConverterProps) {
     }
   };
 
+  /**
+   * @function handleToUnitChange
+   * @description Handles changes in the "to" unit selection. Recalculates the conversion based on the new unit.
+   * @param {number} index - The index of the newly selected "to" unit.
+   */
   const handleToUnitChange = (index: number) => {
     setToUnit(index);
     if (fromValue) {
@@ -55,6 +87,10 @@ export default function UnitConverter({ category }: UnitConverterProps) {
     }
   };
 
+  /**
+   * @function swapUnits
+   * @description Swaps the "from" and "to" units and their corresponding values.
+   */
   const swapUnits = () => {
     setFromUnit(toUnit);
     setToUnit(fromUnit);

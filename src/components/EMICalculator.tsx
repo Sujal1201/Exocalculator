@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import { DollarSign, Percent, Calendar } from 'lucide-react';
 
+/**
+ * @component EMICalculator
+ * @description A component to calculate the Equated Monthly Installment (EMI) for a loan.
+ * It takes the loan amount, interest rate, and tenure as input and displays the monthly EMI,
+ * total interest payable, and total payment.
+ * @returns {JSX.Element} The rendered EMI calculator component.
+ */
 export default function EMICalculator() {
   const [principal, setPrincipal] = useState('');
   const [rate, setRate] = useState('');
@@ -10,11 +17,21 @@ export default function EMICalculator() {
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalInterest, setTotalInterest] = useState(0);
 
+  /**
+   * @effect
+   * @description Recalculates the EMI whenever the principal, rate, tenure, or tenure type changes.
+   * The calculation is only performed if all required fields have valid values.
+   */
   useEffect(() => {
+    /**
+     * @function calculateEMI
+     * @description Calculates the monthly EMI, total payment, and total interest based on the current state.
+     * It handles edge cases such as a zero interest rate.
+     */
     const calculateEMI = () => {
       const P = Number(principal);
-      const R = Number(rate) / 12 / 100;
-      const N = tenureType === 'years' ? Number(tenure) * 12 : Number(tenure);
+      const R = Number(rate) / 12 / 100; // Monthly interest rate
+      const N = tenureType === 'years' ? Number(tenure) * 12 : Number(tenure); // Tenure in months
 
       if (P <= 0 || R < 0 || N <= 0) {
         setEmi(0);
@@ -23,6 +40,7 @@ export default function EMICalculator() {
         return;
       }
 
+      // Handle case where interest rate is zero
       if (R === 0) {
         const calculatedEMI = P / N;
         setEmi(calculatedEMI);
@@ -31,6 +49,7 @@ export default function EMICalculator() {
         return;
       }
 
+      // Standard EMI formula: P * R * (1+R)^N / ((1+R)^N - 1)
       const calculatedEMI = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
       const calculatedTotal = calculatedEMI * N;
       const calculatedInterest = calculatedTotal - P;
@@ -49,7 +68,13 @@ export default function EMICalculator() {
     }
   }, [principal, rate, tenure, tenureType]);
 
-  const formatCurrency = (value: number) => {
+  /**
+   * @function formatCurrency
+   * @description Formats a number into a US dollar currency string.
+   * @param {number} value - The number to format.
+   * @returns {string} The formatted currency string (e.g., "$1,234.56").
+   */
+  const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',

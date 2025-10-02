@@ -1,10 +1,16 @@
-
 import { Routes, Route, Link } from 'react-router-dom';
 import { Calculator } from 'lucide-react';
 import HomePage from './pages/HomePage';
 import CalculatorPage from './pages/CalculatorPage';
 import { calculators } from './data/calculators';
 
+/**
+ * @component App
+ * @description The root component of the Calculator Suite application.
+ * It sets up the main layout including the header, main content area, and footer.
+ * It also defines the application's routing using `react-router-dom`.
+ * @returns {JSX.Element} The rendered application component.
+ */
 function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -42,18 +48,6 @@ function App() {
         </div>
       </footer>
     </div>
-=======
-import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import CalculatorPage from './pages/CalculatorPage';
-
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/calculator/:id" element={<CalculatorPage />} />
-    </Routes>
-
   );
 }
 

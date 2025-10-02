@@ -1,3 +1,12 @@
+/**
+ * @file Root TypeScript configuration file for the project.
+ * @description This is a solution-style tsconfig.json file. It uses references to other tsconfig files
+ * in the project to manage different compilation contexts, such as the application source code
+ * and the build-related Node.js files (like vite.config.ts).
+ *
+ * @property {Array} files - An empty array, as this file's purpose is to reference other configs, not to include files directly.
+ * @property {Array<object>} references - An array of objects that point to the other tsconfig.json files in the project.
+ */
 {
   "files": [],
   "references": [

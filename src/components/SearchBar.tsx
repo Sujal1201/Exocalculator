@@ -1,11 +1,24 @@
 import { Search } from 'lucide-react';
 
+/**
+ * @interface SearchBarProps
+ * @description Defines the props for the SearchBar component.
+ * @property {string} value - The current value of the search input.
+ * @property {(value: string) => void} onChange - Callback function to handle changes in the search input.
+ * @property {string} [placeholder] - Optional placeholder text for the search input.
+ */
 interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
 }
 
+/**
+ * @component SearchBar
+ * @description A reusable search bar component with an icon.
+ * @param {SearchBarProps} props - The props for the component.
+ * @returns {JSX.Element} The rendered search bar component.
+ */
 const SearchBar = ({
   value,
   onChange,

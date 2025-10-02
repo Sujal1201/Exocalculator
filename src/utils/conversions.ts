@@ -1,6 +1,17 @@
 import { CalculatorCategory } from '../types/calculator';
 
-// Length conversions (base unit: meters)
+/**
+ * @file This file defines the data for various unit conversion categories.
+ * Each category is an object conforming to the `CalculatorCategory` interface
+ * and includes a list of units with their conversion functions.
+ * The conversion logic is based on a common base unit for each category.
+ * For temperature, Celsius is used as the "base" for inter-conversions, though it's a special case.
+ */
+
+/**
+ * @const {CalculatorCategory} lengthUnits
+ * @description Defines units for length and distance conversions. The base unit is the meter.
+ */
 export const lengthUnits: CalculatorCategory = {
   id: 'length',
   name: 'Length / Distance',
@@ -63,7 +74,10 @@ export const lengthUnits: CalculatorCategory = {
   ],
 };
 
-// Area conversions (base unit: square meters)
+/**
+ * @const {CalculatorCategory} areaUnits
+ * @description Defines units for area conversions. The base unit is the square meter.
+ */
 export const areaUnits: CalculatorCategory = {
   id: 'area',
   name: 'Area',
@@ -132,7 +146,10 @@ export const areaUnits: CalculatorCategory = {
   ],
 };
 
-// Volume conversions (base unit: liters)
+/**
+ * @const {CalculatorCategory} volumeUnits
+ * @description Defines units for volume conversions. The base unit is the liter.
+ */
 export const volumeUnits: CalculatorCategory = {
   id: 'volume',
   name: 'Volume',
@@ -207,7 +224,10 @@ export const volumeUnits: CalculatorCategory = {
   ],
 };
 
-// Weight conversions (base unit: kilograms)
+/**
+ * @const {CalculatorCategory} weightUnits
+ * @description Defines units for weight and mass conversions. The base unit is the kilogram.
+ */
 export const weightUnits: CalculatorCategory = {
   id: 'weight',
   name: 'Weight / Mass',
@@ -264,7 +284,10 @@ export const weightUnits: CalculatorCategory = {
   ],
 };
 
-// Temperature conversions (special case - not using base unit system)
+/**
+ * @const {CalculatorCategory} temperatureUnits
+ * @description Defines units for temperature conversions. Celsius is the base unit for conversion calculations.
+ */
 export const temperatureUnits: CalculatorCategory = {
   id: 'temperature',
   name: 'Temperature',
@@ -297,7 +320,10 @@ export const temperatureUnits: CalculatorCategory = {
   ],
 };
 
-// Speed conversions (base unit: meters per second)
+/**
+ * @const {CalculatorCategory} speedUnits
+ * @description Defines units for speed and velocity conversions. The base unit is meters per second.
+ */
 export const speedUnits: CalculatorCategory = {
   id: 'speed',
   name: 'Speed / Velocity',
@@ -342,7 +368,10 @@ export const speedUnits: CalculatorCategory = {
   ],
 };
 
-// Pressure conversions (base unit: pascals)
+/**
+ * @const {CalculatorCategory} pressureUnits
+ * @description Defines units for pressure conversions. The base unit is the pascal.
+ */
 export const pressureUnits: CalculatorCategory = {
   id: 'pressure',
   name: 'Pressure',
@@ -393,7 +422,10 @@ export const pressureUnits: CalculatorCategory = {
   ],
 };
 
-// Power conversions (base unit: watts)
+/**
+ * @const {CalculatorCategory} powerUnits
+ * @description Defines units for power conversions. The base unit is the watt.
+ */
 export const powerUnits: CalculatorCategory = {
   id: 'power',
   name: 'Power',
@@ -438,7 +470,10 @@ export const powerUnits: CalculatorCategory = {
   ],
 };
 
-// Time conversions (base unit: seconds)
+/**
+ * @const {CalculatorCategory} timeUnits
+ * @description Defines units for time conversions. The base unit is the second.
+ */
 export const timeUnits: CalculatorCategory = {
   id: 'time',
   name: 'Time',
@@ -495,7 +530,10 @@ export const timeUnits: CalculatorCategory = {
   ],
 };
 
-// Energy conversions (base unit: joules)
+/**
+ * @const {CalculatorCategory} energyUnits
+ * @description Defines units for energy conversions. The base unit is the joule.
+ */
 export const energyUnits: CalculatorCategory = {
   id: 'energy',
   name: 'Energy',
@@ -552,7 +590,10 @@ export const energyUnits: CalculatorCategory = {
   ],
 };
 
-// Data storage conversions (base unit: bytes)
+/**
+ * @const {CalculatorCategory} dataUnits
+ * @description Defines units for data storage conversions. The base unit is the byte.
+ */
 export const dataUnits: CalculatorCategory = {
   id: 'data',
   name: 'Data Storage',
@@ -603,6 +644,11 @@ export const dataUnits: CalculatorCategory = {
   ],
 };
 
+/**
+ * @const {CalculatorCategory[]} allCategories
+ * @description An array containing all the defined unit conversion categories.
+ * This can be used for programmatically accessing all conversion data.
+ */
 export const allCategories = [
   lengthUnits,
   areaUnits,

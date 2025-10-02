@@ -1,7 +1,15 @@
 import { useState } from 'react';
 
+/**
+ * @typedef {'binary' | 'decimal' | 'hexadecimal' | 'octal'} NumberBase
+ * @description A type representing the supported number bases for conversion.
+ */
 type NumberBase = 'binary' | 'decimal' | 'hexadecimal' | 'octal';
 
+/**
+ * @const {Array<object>} bases
+ * @description An array of objects, each defining a number base with its properties.
+ */
 const bases = [
   { id: 'binary' as NumberBase, name: 'Binary', base: 2, prefix: '0b' },
   { id: 'decimal' as NumberBase, name: 'Decimal', base: 10, prefix: '' },
@@ -9,6 +17,12 @@ const bases = [
   { id: 'octal' as NumberBase, name: 'Octal', base: 8, prefix: '0o' },
 ];
 
+/**
+ * @component NumberSystemCalculator
+ * @description A component for converting numbers between different number systems (binary, decimal, hexadecimal, and octal).
+ * It validates user input and updates all fields simultaneously when a valid number is entered in any base.
+ * @returns {JSX.Element} The rendered number system calculator component.
+ */
 export default function NumberSystemCalculator() {
   const [values, setValues] = useState<Record<NumberBase, string>>({
     binary: '',
@@ -18,6 +32,13 @@ export default function NumberSystemCalculator() {
   });
   const [error, setError] = useState('');
 
+  /**
+   * @function isValidNumber
+   * @description Validates if a given string is a valid number for a specified base.
+   * @param {string} value - The number string to validate.
+   * @param {number} base - The base to validate against (e.g., 2 for binary, 16 for hexadecimal).
+   * @returns {boolean} True if the number is valid, false otherwise.
+   */
   const isValidNumber = (value: string, base: number): boolean => {
     if (!value) return true;
     if (base === 2) return /^[01]+$/.test(value);
@@ -27,6 +48,13 @@ export default function NumberSystemCalculator() {
     return false;
   };
 
+  /**
+   * @function handleChange
+   * @description Handles input changes for any of the number base fields.
+   * It validates the input, and if valid, converts the number to all other bases and updates the state.
+   * @param {NumberBase} baseType - The base of the input field that changed.
+   * @param {string} value - The new value from the input field.
+   */
   const handleChange = (baseType: NumberBase, value: string) => {
     const base = bases.find(b => b.id === baseType)!;
 

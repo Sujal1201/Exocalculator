@@ -16,6 +16,10 @@ import {
   Percent,
 } from 'lucide-react';
 
+/**
+ * @typedef {'currency' | 'length' | ... | 'percentage'} CalculatorType
+ * @description A union type that represents the unique identifier for each calculator available in the application.
+ */
 export type CalculatorType =
   | 'currency'
   | 'length'
@@ -33,6 +37,12 @@ export type CalculatorType =
   | 'data'
   | 'percentage';
 
+/**
+ * @const {Array<object>} calculators
+ * @description An array of objects that serves as the central data source for all calculators in the application.
+ * Each object defines the properties of a calculator, such as its ID, name, description, icon, and color,
+ * which are used to dynamically render the calculator list and pages.
+ */
 export const calculators = [
   {
     id: 'currency' as CalculatorType,
