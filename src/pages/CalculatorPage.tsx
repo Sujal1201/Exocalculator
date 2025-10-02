@@ -1,4 +1,8 @@
 import { useParams, Link } from 'react-router-dom';
+
+import { ArrowLeft } from 'lucide-react';
+=======
+
 import { calculators, CalculatorType } from '../data/calculators';
 import UnitConverter from '../components/UnitConverter';
 import CurrencyCalculator from '../components/CurrencyCalculator';
@@ -18,11 +22,18 @@ import {
   energyUnits,
   dataUnits,
 } from '../utils/conversions';
+
+
+export default function CalculatorPage() {
+  const { id } = useParams<{ id: CalculatorType }>();
+  const activeCalc = calculators.find((c) => c.id === id);
+=======
 import { ArrowLeft, Calculator } from 'lucide-react';
 
 const CalculatorPage = () => {
   const { id } = useParams<{ id: CalculatorType }>();
   const activeCalculator = calculators.find((c) => c.id === id);
+
 
   const renderCalculator = () => {
     switch (id) {
@@ -58,34 +69,83 @@ const CalculatorPage = () => {
         return <PercentageCalculator />;
       default:
         return (
+
+          <div className="text-center text-red-500">
+            Error: Calculator not found.
+=======
           <div className="text-center py-10">
             <h2 className="text-xl font-semibold text-gray-800">Calculator not found</h2>
             <p className="text-gray-600 mt-2">
               Please select a valid calculator from the home page.
             </p>
+
           </div>
         );
     }
   };
 
+
+  if (!activeCalc) {
+    return (
+      <div className="text-center p-8">
+        <h2 className="text-2xl font-bold text-red-600">Calculator Not Found</h2>
+        <p className="text-gray-600 mt-2">
+=======
   if (!activeCalculator) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
         <h1 className="text-4xl font-bold text-red-600 mb-4">404 - Not Found</h1>
         <p className="text-lg text-gray-700 mb-8">
+
           The calculator you are looking for does not exist.
         </p>
         <Link
           to="/"
+
+          className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+=======
           className="flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
+
           Back to Home
         </Link>
       </div>
     );
   }
 
+
+  const Icon = activeCalc.icon;
+
+  return (
+    <div>
+      <div className="mb-8">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-primary hover:underline mb-4"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to all calculators
+        </Link>
+        <div className="flex items-center gap-4">
+          <div className={`p-3 ${activeCalc.color} rounded-lg`}>
+            <Icon className="w-8 h-8 text-white" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {activeCalc.name} Calculator
+            </h2>
+            <p className="text-sm text-gray-600">{activeCalc.description}</p>
+          </div>
+        </div>
+      </div>
+      {renderCalculator()}
+    </div>
+  );
+}
+=======
   const { name, description, color, icon: Icon } = activeCalculator;
 
   return (
@@ -136,3 +196,4 @@ const CalculatorPage = () => {
 };
 
 export default CalculatorPage;
+
