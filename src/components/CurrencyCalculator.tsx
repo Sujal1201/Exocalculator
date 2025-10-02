@@ -36,15 +36,26 @@ export default function CurrencyCalculator() {
   const fetchRates = async () => {
     setLoading(true);
     setError('');
+
+    const apiKey = import.meta.env.VITE_EXCHANGE_RATE_API_KEY;
+    if (!apiKey) {
+      setError('API key is not configured. Please add it to your .env file.');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+      const response = await fetch(`https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`);
       if (!response.ok) throw new Error('Failed to fetch rates');
       const data = await response.json();
-      setRates(data.rates);
+      if (data.result === 'error') {
+        throw new Error(data['error-type']);
+      }
+      setRates(data.conversion_rates);
       setLastUpdate(new Date());
       setLoading(false);
     } catch {
-      setError('Unable to load exchange rates. Using approximate values.');
+       setError('Unable to load exchange rates. Using approximate values.');
       setRates({
         USD: 1,
         EUR: 0.92,
