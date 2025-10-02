@@ -62,7 +62,7 @@ export default function PercentageCalculator() {
           onClick={() => setType('basic')}
           className={`px-4 py-2 rounded-lg font-medium transition-colors ${
             type === 'basic'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-primary text-white'
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
           }`}
         >
@@ -72,7 +72,7 @@ export default function PercentageCalculator() {
           onClick={() => setType('increase')}
           className={`px-4 py-2 rounded-lg font-medium transition-colors ${
             type === 'increase'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-primary text-white'
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
           }`}
         >
@@ -82,7 +82,7 @@ export default function PercentageCalculator() {
           onClick={() => setType('decrease')}
           className={`px-4 py-2 rounded-lg font-medium transition-colors ${
             type === 'decrease'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-primary text-white'
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
           }`}
         >
@@ -92,7 +92,7 @@ export default function PercentageCalculator() {
           onClick={() => setType('difference')}
           className={`px-4 py-2 rounded-lg font-medium transition-colors ${
             type === 'difference'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-primary text-white'
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
           }`}
         >

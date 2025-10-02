@@ -61,7 +61,7 @@ export default function NumberSystemCalculator() {
         hexadecimal: decimalValue.toString(16).toUpperCase(),
         octal: decimalValue.toString(8),
       });
-    } catch (err) {
+    } catch {
       setError('Conversion error');
     }
   };

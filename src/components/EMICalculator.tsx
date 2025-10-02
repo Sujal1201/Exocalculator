@@ -11,6 +11,35 @@ export default function EMICalculator() {
   const [totalInterest, setTotalInterest] = useState(0);
 
   useEffect(() => {
+    const calculateEMI = () => {
+      const P = Number(principal);
+      const R = Number(rate) / 12 / 100;
+      const N = tenureType === 'years' ? Number(tenure) * 12 : Number(tenure);
+
+      if (P <= 0 || R < 0 || N <= 0) {
+        setEmi(0);
+        setTotalAmount(0);
+        setTotalInterest(0);
+        return;
+      }
+
+      if (R === 0) {
+        const calculatedEMI = P / N;
+        setEmi(calculatedEMI);
+        setTotalAmount(P);
+        setTotalInterest(0);
+        return;
+      }
+
+      const calculatedEMI = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+      const calculatedTotal = calculatedEMI * N;
+      const calculatedInterest = calculatedTotal - P;
+
+      setEmi(calculatedEMI);
+      setTotalAmount(calculatedTotal);
+      setTotalInterest(calculatedInterest);
+    };
+
     if (principal && rate && tenure) {
       calculateEMI();
     } else {
@@ -19,35 +48,6 @@ export default function EMICalculator() {
       setTotalInterest(0);
     }
   }, [principal, rate, tenure, tenureType]);
-
-  const calculateEMI = () => {
-    const P = Number(principal);
-    const R = Number(rate) / 12 / 100;
-    const N = tenureType === 'years' ? Number(tenure) * 12 : Number(tenure);
-
-    if (P <= 0 || R < 0 || N <= 0) {
-      setEmi(0);
-      setTotalAmount(0);
-      setTotalInterest(0);
-      return;
-    }
-
-    if (R === 0) {
-      const calculatedEMI = P / N;
-      setEmi(calculatedEMI);
-      setTotalAmount(P);
-      setTotalInterest(0);
-      return;
-    }
-
-    const calculatedEMI = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
-    const calculatedTotal = calculatedEMI * N;
-    const calculatedInterest = calculatedTotal - P;
-
-    setEmi(calculatedEMI);
-    setTotalAmount(calculatedTotal);
-    setTotalInterest(calculatedInterest);
-  };
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -153,7 +153,7 @@ export default function EMICalculator() {
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3">
                   <div
-                    className="bg-blue-500 h-3 rounded-full transition-all duration-300"
+                    className="bg-primary h-3 rounded-full transition-all duration-300"
                     style={{ width: `${principalPercentage}%` }}
                   />
                 </div>
