@@ -111,7 +111,7 @@ export default function NumberSystemCalculator() {
       {values.decimal && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
           <div className="text-sm font-medium text-gray-700 mb-2">Quick Reference:</div>
-          <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-600">
             <div>Binary digits: {values.binary.length}</div>
             <div>Hex digits: {values.hexadecimal.length}</div>
             <div>Decimal value: {parseInt(values.decimal).toLocaleString()}</div>

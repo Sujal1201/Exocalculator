@@ -118,11 +118,11 @@ const CalculatorPage = () => {
         </div>
 
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
             <div className={`p-3 ${color} rounded-lg`}>
               <Icon className="w-8 h-8 text-white" />
             </div>
-            <div>
+            <div className="text-center sm:text-left">
               <h2 className="text-2xl font-bold text-gray-900">{name} Calculator</h2>
               <p className="text-base text-gray-600">{description}</p>
             </div>

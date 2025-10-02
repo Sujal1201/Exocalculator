@@ -136,7 +136,7 @@ export default function CurrencyCalculator() {
 
       <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
         <label className="block text-sm font-medium text-gray-700 mb-2">From</label>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <input
             type="number"
             value={fromAmount}
@@ -147,7 +147,7 @@ export default function CurrencyCalculator() {
           <select
             value={fromCurrency}
             onChange={(e) => handleFromCurrencyChange(e.target.value)}
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white text-lg min-w-[200px]"
+            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white text-lg sm:min-w-[200px]"
           >
             {currencies.map((curr) => (
               <option key={curr.code} value={curr.code}>
@@ -172,7 +172,7 @@ export default function CurrencyCalculator() {
 
       <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
         <label className="block text-sm font-medium text-gray-700 mb-2">To</label>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <input
             type="number"
             value={toAmount}
@@ -183,7 +183,7 @@ export default function CurrencyCalculator() {
           <select
             value={toCurrency}
             onChange={(e) => handleToCurrencyChange(e.target.value)}
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white text-lg min-w-[200px]"
+            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white text-lg sm:min-w-[200px]"
           >
             {currencies.map((curr) => (
               <option key={curr.code} value={curr.code}>
