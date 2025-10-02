@@ -1,3 +1,4 @@
+
 import { Routes, Route, Link } from 'react-router-dom';
 import { Calculator } from 'lucide-react';
 import HomePage from './pages/HomePage';
@@ -41,6 +42,18 @@ function App() {
         </div>
       </footer>
     </div>
+=======
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import CalculatorPage from './pages/CalculatorPage';
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/calculator/:id" element={<CalculatorPage />} />
+    </Routes>
+
   );
 }
 

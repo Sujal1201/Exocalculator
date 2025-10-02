@@ -36,15 +36,26 @@ export default function CurrencyCalculator() {
   const fetchRates = async () => {
     setLoading(true);
     setError('');
+
+    const apiKey = import.meta.env.VITE_EXCHANGE_RATE_API_KEY;
+    if (!apiKey) {
+      setError('API key is not configured. Please add it to your .env file.');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+      const response = await fetch(`https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`);
       if (!response.ok) throw new Error('Failed to fetch rates');
       const data = await response.json();
-      setRates(data.rates);
+      if (data.result === 'error') {
+        throw new Error(data['error-type']);
+      }
+      setRates(data.conversion_rates);
       setLastUpdate(new Date());
       setLoading(false);
     } catch {
-      setError('Unable to load exchange rates. Using approximate values.');
+       setError('Unable to load exchange rates. Using approximate values.');
       setRates({
         USD: 1,
         EUR: 0.92,
@@ -136,7 +147,7 @@ export default function CurrencyCalculator() {
 
       <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
         <label className="block text-sm font-medium text-gray-700 mb-2">From</label>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <input
             type="number"
             value={fromAmount}
@@ -147,7 +158,7 @@ export default function CurrencyCalculator() {
           <select
             value={fromCurrency}
             onChange={(e) => handleFromCurrencyChange(e.target.value)}
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white text-lg min-w-[200px]"
+            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white text-lg sm:min-w-[200px]"
           >
             {currencies.map((curr) => (
               <option key={curr.code} value={curr.code}>
@@ -172,7 +183,7 @@ export default function CurrencyCalculator() {
 
       <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
         <label className="block text-sm font-medium text-gray-700 mb-2">To</label>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <input
             type="number"
             value={toAmount}
@@ -183,7 +194,7 @@ export default function CurrencyCalculator() {
           <select
             value={toCurrency}
             onChange={(e) => handleToCurrencyChange(e.target.value)}
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white text-lg min-w-[200px]"
+            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white text-lg sm:min-w-[200px]"
           >
             {currencies.map((curr) => (
               <option key={curr.code} value={curr.code}>
