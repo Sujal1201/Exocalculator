@@ -1,24 +1,78 @@
+/**
+ * @file TypeScript configuration for the application source code.
+ * @description This file contains the TypeScript compiler options specifically for the React application code located in the `src` directory.
+ * It inherits from the root `tsconfig.json` and sets stricter rules for the app.
+ */
 {
   "compilerOptions": {
+    /**
+     * @property {string} target - The ECMAScript target version for the compiled JavaScript. ES2020 is a modern standard.
+     */
     "target": "ES2020",
+    /**
+     * @property {boolean} useDefineForClassFields - Enforces that class fields are initialized according to the ECMAScript standard.
+     */
     "useDefineForClassFields": true,
+    /**
+     * @property {Array<string>} lib - The set of library files to be included in the compilation. Includes modern ES features and DOM APIs.
+     */
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    /**
+     * @property {string} module - The module system for the generated code. ESNext is used for modern bundlers like Vite.
+     */
     "module": "ESNext",
+    /**
+     * @property {boolean} skipLibCheck - Skips type checking of all declaration files (*.d.ts).
+     */
     "skipLibCheck": true,
 
     /* Bundler mode */
+    /**
+     * @property {string} moduleResolution - Specifies how modules get resolved. 'bundler' mode is optimized for modern bundlers.
+     */
     "moduleResolution": "bundler",
+    /**
+     * @property {boolean} allowImportingTsExtensions - Allows importing TypeScript files with a .ts extension.
+     */
     "allowImportingTsExtensions": true,
+    /**
+     * @property {boolean} isolatedModules - Ensures that each file can be safely transpiled without relying on other imports. Required by Vite.
+     */
     "isolatedModules": true,
+    /**
+     * @property {string} moduleDetection - 'force' ensures that each file is treated as a module.
+     */
     "moduleDetection": "force",
+    /**
+     * @property {boolean} noEmit - Prevents the compiler from generating output files. The bundler (Vite) handles this.
+     */
     "noEmit": true,
+    /**
+     * @property {string} jsx - Specifies the JSX factory function to use. 'react-jsx' is the modern JSX transform.
+     */
     "jsx": "react-jsx",
 
     /* Linting */
+    /**
+     * @property {boolean} strict - Enables all strict type-checking options.
+     */
     "strict": true,
+    /**
+     * @property {boolean} noUnusedLocals - Reports errors on unused local variables.
+     */
     "noUnusedLocals": true,
+    /**
+     * @property {boolean} noUnusedParameters - Reports errors on unused parameters.
+     */
     "noUnusedParameters": true,
+    /**
+     * @property {boolean} noFallthroughCasesInSwitch - Reports errors for fallthrough cases in switch statements.
+     */
     "noFallthroughCasesInSwitch": true
   },
+  /**
+   * @property {Array<string>} include - An array of file paths or patterns to be included in the compilation.
+   * This config specifically includes the `src` directory.
+   */
   "include": ["src"]
 }

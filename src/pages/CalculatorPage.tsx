@@ -1,8 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-
 import { ArrowLeft } from 'lucide-react';
-=======
-
 import { calculators, CalculatorType } from '../data/calculators';
 import UnitConverter from '../components/UnitConverter';
 import CurrencyCalculator from '../components/CurrencyCalculator';
@@ -23,20 +20,24 @@ import {
   dataUnits,
 } from '../utils/conversions';
 
-
-export default function CalculatorPage() {
-  const { id } = useParams<{ id: CalculatorType }>();
-  const activeCalc = calculators.find((c) => c.id === id);
-=======
-import { ArrowLeft, Calculator } from 'lucide-react';
-
+/**
+ * @component CalculatorPage
+ * @description A page that displays the specific calculator selected by the user.
+ * It uses the URL parameter `id` to determine which calculator to render.
+ * If the `id` is invalid, it displays a "not found" message.
+ * @returns {JSX.Element} The rendered calculator page or a not-found message.
+ */
 const CalculatorPage = () => {
-  const { id } = useParams<{ id: CalculatorType }>();
+  const { id } = useParams<{ id: string }>();
   const activeCalculator = calculators.find((c) => c.id === id);
 
-
+  /**
+   * @function renderCalculator
+   * @description A factory function that returns the appropriate calculator component based on the URL `id`.
+   * @returns {JSX.Element} The specific calculator component or a "not found" message.
+   */
   const renderCalculator = () => {
-    switch (id) {
+    switch (id as CalculatorType) {
       case 'currency':
         return <CurrencyCalculator />;
       case 'length':
@@ -69,55 +70,35 @@ const CalculatorPage = () => {
         return <PercentageCalculator />;
       default:
         return (
-
-          <div className="text-center text-red-500">
-            Error: Calculator not found.
-=======
           <div className="text-center py-10">
             <h2 className="text-xl font-semibold text-gray-800">Calculator not found</h2>
             <p className="text-gray-600 mt-2">
               Please select a valid calculator from the home page.
             </p>
-
           </div>
         );
     }
   };
 
-
-  if (!activeCalc) {
-    return (
-      <div className="text-center p-8">
-        <h2 className="text-2xl font-bold text-red-600">Calculator Not Found</h2>
-        <p className="text-gray-600 mt-2">
-=======
   if (!activeCalculator) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-        <h1 className="text-4xl font-bold text-red-600 mb-4">404 - Not Found</h1>
-        <p className="text-lg text-gray-700 mb-8">
-
-          The calculator you are looking for does not exist.
-        </p>
-        <Link
-          to="/"
-
-          className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-=======
-          className="flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5" />
-
-          Back to Home
-        </Link>
+      <div className="text-center py-10">
+          <h2 className="text-xl font-semibold text-gray-800">Calculator not found</h2>
+          <p className="text-gray-600 mt-2">
+            The calculator you are looking for does not exist.
+          </p>
+          <Link
+            to="/"
+            className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Home
+          </Link>
       </div>
     );
   }
 
-
-  const Icon = activeCalc.icon;
+  const { name, description, color, icon: Icon } = activeCalculator;
 
   return (
     <div>
@@ -130,70 +111,20 @@ const CalculatorPage = () => {
           Back to all calculators
         </Link>
         <div className="flex items-center gap-4">
-          <div className={`p-3 ${activeCalc.color} rounded-lg`}>
+          <div className={`p-3 ${color} rounded-lg`}>
             <Icon className="w-8 h-8 text-white" />
           </div>
           <div>
             <h2 className="text-2xl font-bold text-gray-900">
-              {activeCalc.name} Calculator
+              {name} Calculator
             </h2>
-            <p className="text-sm text-gray-600">{activeCalc.description}</p>
+            <p className="text-sm text-gray-600">{description}</p>
           </div>
         </div>
       </div>
       {renderCalculator()}
     </div>
   );
-}
-=======
-  const { name, description, color, icon: Icon } = activeCalculator;
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-       <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary rounded-lg">
-                <Calculator className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-gray-900">Calculator Suite</h1>
-                <p className="text-sm text-gray-600">Professional conversion tools</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-6">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-primary transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to all calculators
-          </Link>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <div className={`p-3 ${color} rounded-lg`}>
-              <Icon className="w-8 h-8 text-white" />
-            </div>
-            <div className="text-center sm:text-left">
-              <h2 className="text-2xl font-bold text-gray-900">{name} Calculator</h2>
-              <p className="text-base text-gray-600">{description}</p>
-            </div>
-          </div>
-        </div>
-
-        <div>{renderCalculator()}</div>
-      </main>
-    </div>
-  );
 };
 
 export default CalculatorPage;
-

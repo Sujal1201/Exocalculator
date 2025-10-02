@@ -1,10 +1,18 @@
 import { useState, useEffect } from 'react';
 import { RefreshCw } from 'lucide-react';
 
+/**
+ * @interface ExchangeRates
+ * @description Defines the structure for storing exchange rates, where each key is a currency code and the value is its rate.
+ */
 interface ExchangeRates {
   [key: string]: number;
 }
 
+/**
+ * @const {Array<object>} currencies
+ * @description A list of supported currencies with their codes, names, and symbols.
+ */
 const currencies = [
   { code: 'USD', name: 'US Dollar', symbol: '$' },
   { code: 'EUR', name: 'Euro', symbol: '€' },
@@ -23,6 +31,11 @@ const currencies = [
   { code: 'KRW', name: 'South Korean Won', symbol: '₩' },
 ];
 
+/**
+ * @component CurrencyCalculator
+ * @description A component for converting amounts between different currencies. It fetches real-time exchange rates from an API and provides a fallback to approximate values if the API fails.
+ * @returns {JSX.Element} The rendered currency calculator component.
+ */
 export default function CurrencyCalculator() {
   const [rates, setRates] = useState<ExchangeRates>({});
   const [loading, setLoading] = useState(true);
@@ -33,6 +46,11 @@ export default function CurrencyCalculator() {
   const [toAmount, setToAmount] = useState('');
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
 
+  /**
+   * @function fetchRates
+   * @description Fetches the latest exchange rates from the ExchangeRate-API.
+   * If the API key is missing or the request fails, it sets an error message and uses fallback rates.
+   */
   const fetchRates = async () => {
     setLoading(true);
     setError('');
@@ -78,10 +96,22 @@ export default function CurrencyCalculator() {
     }
   };
 
+  /**
+   * @effect
+   * @description Fetches the exchange rates when the component mounts.
+   */
   useEffect(() => {
     fetchRates();
   }, []);
 
+  /**
+   * @function convert
+   * @description Converts an amount from one currency to another using the stored exchange rates.
+   * @param {string} amount - The amount to convert.
+   * @param {string} from - The currency code to convert from.
+   * @param {string} to - The currency code to convert to.
+   * @returns {string} The converted amount, formatted to two decimal places, or an empty string if the input is invalid.
+   */
   const convert = (amount: string, from: string, to: string): string => {
     if (!amount || isNaN(Number(amount)) || !rates[from] || !rates[to]) {
       return '';
@@ -92,16 +122,31 @@ export default function CurrencyCalculator() {
     return result.toFixed(2);
   };
 
+  /**
+   * @function handleFromAmountChange
+   * @description Handles changes to the "from" amount input field. Updates the "to" amount by converting the new value.
+   * @param {string} value - The new value from the input field.
+   */
   const handleFromAmountChange = (value: string) => {
     setFromAmount(value);
     setToAmount(convert(value, fromCurrency, toCurrency));
   };
 
+  /**
+   * @function handleToAmountChange
+   * @description Handles changes to the "to" amount input field. Updates the "from" amount by converting the new value.
+   * @param {string} value - The new value from the input field.
+   */
   const handleToAmountChange = (value: string) => {
     setToAmount(value);
     setFromAmount(convert(value, toCurrency, fromCurrency));
   };
 
+  /**
+   * @function handleFromCurrencyChange
+   * @description Handles changes to the "from" currency selection. Recalculates the "to" amount if a "from" amount is present.
+   * @param {string} currency - The new "from" currency code.
+   */
   const handleFromCurrencyChange = (currency: string) => {
     setFromCurrency(currency);
     if (fromAmount) {
@@ -109,6 +154,11 @@ export default function CurrencyCalculator() {
     }
   };
 
+  /**
+   * @function handleToCurrencyChange
+   * @description Handles changes to the "to" currency selection. Recalculates the "to" amount if a "from" amount is present.
+   * @param {string} currency - The new "to" currency code.
+   */
   const handleToCurrencyChange = (currency: string) => {
     setToCurrency(currency);
     if (fromAmount) {
@@ -116,6 +166,10 @@ export default function CurrencyCalculator() {
     }
   };
 
+  /**
+   * @function swapCurrencies
+   * @description Swaps the "from" and "to" currencies and their corresponding amounts.
+   */
   const swapCurrencies = () => {
     setFromCurrency(toCurrency);
     setToCurrency(fromCurrency);
