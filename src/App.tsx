@@ -66,7 +66,7 @@ const calculators = [
     name: 'Length',
     description: 'Distance conversions',
     icon: Ruler,
-    color: 'bg-blue-500',
+    color: 'bg-primary',
   },
   {
     id: 'area' as CalculatorType,
@@ -210,11 +210,11 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-500 rounded-lg">
+              <div className="p-2 bg-primary rounded-lg">
                 <Calculator className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Calculator Suite</h1>
+                <h1 className="text-lg font-bold text-gray-900">Calculator Suite</h1>
                 <p className="text-sm text-gray-600">Professional conversion tools</p>
               </div>
             </div>
@@ -292,7 +292,7 @@ function App() {
                       <activeCalc.icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900">
+                      <h2 className="text-lg font-bold text-gray-900">
                         {activeCalc.name} Calculator
                       </h2>
                       <p className="text-sm text-gray-600">{activeCalc.description}</p>

@@ -91,7 +91,7 @@ export default function UnitConverter({ category }: UnitConverterProps) {
       <div className="flex justify-center">
         <button
           onClick={swapUnits}
-          className="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors shadow-md"
+          className="p-3 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors shadow-md"
           title="Swap units"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
