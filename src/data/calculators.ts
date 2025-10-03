@@ -14,6 +14,7 @@ import {
   Battery,
   HardDrive,
   Percent,
+  Banknote,
 } from 'lucide-react';
 
 /**
@@ -35,7 +36,8 @@ export type CalculatorType =
   | 'time'
   | 'energy'
   | 'data'
-  | 'percentage';
+  | 'percentage'
+  | 'money';
 
 /**
  * @const {Array<object>} calculators
@@ -45,6 +47,15 @@ export type CalculatorType =
  */
 export const calculators = [
   {
+    id: 'money' as CalculatorType,
+    name: 'cash Counter',
+    description: 'Open notecounter.shop',
+    externalUrl: 'https://notecounter.shop',
+    icon: Banknote,
+    color: 'bg-emerald-500',
+  },
+  {
+    
     id: 'currency' as CalculatorType,
     name: 'Currency',
     description: 'Real-time exchange rates',
@@ -149,4 +160,5 @@ export const calculators = [
     icon: Percent,
     color: 'bg-emerald-500',
   },
+  
 ];

@@ -38,12 +38,8 @@ const HomePage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredCalculators.map((calc) => {
             const Icon = calc.icon;
-            return (
-              <Link
-                key={calc.id}
-                to={`/calculator/${calc.id}`}
-                className="group block bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-              >
+            const card = (
+              <div className="group block bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <div className="p-6">
                   <div
                     className={`p-3 inline-block rounded-lg ${calc.color} group-hover:scale-110 transition-transform duration-300`}
@@ -53,6 +49,25 @@ const HomePage = () => {
                   <h3 className="mt-4 text-lg font-bold text-gray-900">{calc.name}</h3>
                   <p className="mt-1 text-sm text-gray-600">{calc.description}</p>
                 </div>
+              </div>
+            );
+
+            return calc.externalUrl ? (
+              <a
+                key={calc.id}
+                href={calc.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={calc.name}
+              >
+                {card}
+              </a>
+            ) : (
+              <Link
+                key={calc.id}
+                to={`/calculator/${calc.id}`}
+              >
+                {card}
               </Link>
             );
           })}
