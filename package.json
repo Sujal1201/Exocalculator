@@ -1,8 +1,20 @@
 {
   "name": "vite-react-typescript-starter",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "description": "Exocalculator is a versatile, open-source web application that provides a suite of professional and easy-to-use calculators. From financial calculations like EMIs and currency conversions to scientific and mathematical tools like number system converters and unit converters, Exocalculator is designed to be a one-stop solution for a wide range of calculations.",
+  "homepage": "https://github.com/PATILYASHH/Exocalculator#readme",
+  "bugs": {
+    "url": "https://github.com/PATILYASHH/Exocalculator/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PATILYASHH/Exocalculator.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "eslint.config.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
