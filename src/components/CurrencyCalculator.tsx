@@ -48,32 +48,63 @@ export default function CurrencyCalculator() {
 
   /**
    * @function fetchRates
-   * @description Fetches the latest exchange rates from the ExchangeRate-API.
-   * If the API key is missing or the request fails, it sets an error message and uses fallback rates.
+   * @description Fetches the latest exchange rates using multiple providers in order:
+   * 1. Fawaz Ahmed Currency API (free, no key required)
+   * 2. ExchangeRate-API (requires API key)
+   * 3. Fallback to approximate values
    */
   const fetchRates = async () => {
     setLoading(true);
     setError('');
 
-    const apiKey = import.meta.env.VITE_EXCHANGE_RATE_API_KEY;
-    if (!apiKey) {
-      setError('API key is not configured. Please add it to your .env file.');
-      setLoading(false);
-      return;
-    }
-
+    // Try Fawaz Ahmed Currency API first (free, no API key needed)
     try {
-      const response = await fetch(`https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`);
-      if (!response.ok) throw new Error('Failed to fetch rates');
+      const response = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');
+      if (!response.ok) throw new Error('Fawaz API failed');
       const data = await response.json();
-      if (data.result === 'error') {
-        throw new Error(data['error-type']);
+      
+      // Convert the data format to match our ExchangeRates interface
+      const convertedRates: ExchangeRates = {};
+      const usdRates = data.usd;
+      
+      // Convert lowercase currency codes to uppercase and normalize rates
+      for (const [currency, rate] of Object.entries(usdRates)) {
+        if (typeof rate === 'number') {
+          convertedRates[currency.toUpperCase()] = rate;
+        }
       }
-      setRates(data.conversion_rates);
+      
+      // Ensure USD is 1
+      convertedRates['USD'] = 1;
+      
+      setRates(convertedRates);
       setLastUpdate(new Date());
       setLoading(false);
-    } catch {
-       setError('Unable to load exchange rates. Using approximate values.');
+      return;
+    } catch (fawazError) {
+      console.log('Fawaz API failed, trying ExchangeRate-API...');
+      
+      // Try ExchangeRate-API as fallback
+      const apiKey = import.meta.env.VITE_EXCHANGE_RATE_API_KEY;
+      if (apiKey) {
+        try {
+          const response = await fetch(`https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`);
+          if (!response.ok) throw new Error('Failed to fetch rates');
+          const data = await response.json();
+          if (data.result === 'error') {
+            throw new Error(data['error-type']);
+          }
+          setRates(data.conversion_rates);
+          setLastUpdate(new Date());
+          setLoading(false);
+          return;
+        } catch (exchangeError) {
+          console.log('ExchangeRate-API failed, using fallback values...');
+        }
+      }
+      
+      // Use fallback rates as last resort
+      setError('Unable to load live exchange rates. Using approximate values.');
       setRates({
         USD: 1,
         EUR: 0.92,
